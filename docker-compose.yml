@@ -1,0 +1,37 @@
+version: "3.9"
+
+services:
+  backend:
+    build: ./backend
+    container_name: vitalsync-backend
+    ports:
+      - "3000:3000"
+    networks:
+      - vitalsync-net
+
+  frontend:
+    build: ./frontend
+    container_name: vitalsync-frontend
+    ports:
+      - "8080:80"
+    depends_on:
+      - backend
+    networks:
+      - vitalsync-net
+
+  database:
+    image: postgres:15-alpine
+    container_name: vitalsync-db
+    environment:
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    networks:
+      - vitalsync-net
+
+networks:
+  vitalsync-net:
+    driver: bridge
+
+volumes:
+  pgdata:
