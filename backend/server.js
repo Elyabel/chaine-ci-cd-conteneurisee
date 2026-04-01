@@ -10,7 +10,7 @@ app.get("/api/activities", (req, res) => {
 });
 
 app.get("/api/activities/special", (req, res) => {
-    res.json('hello world');
+    res.json('hello world hi');
 });
 
 app.listen(3000, () => console.log("VitalSync API on :3000"));
